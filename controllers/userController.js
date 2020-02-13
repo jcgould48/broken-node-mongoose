@@ -42,7 +42,7 @@ module.exports = {
 
   login: (req, res) => {
     return new Promise((resolve, reject) => {
-      findOne({ email: req.body.email })
+      User.findOne({ email: req.body.email })
         .then(user => {
           bcrypt
             .compare(req.body.password, user.password)
@@ -66,8 +66,8 @@ module.exports = {
         .then(user => {
           const { name, email } = req.body;
 
-          user.name = req.body.name ? req.body.name : user.name;
-          user.email = req.body.email ? req.body.email : user.email;
+          user.name = name ? name : user.name;
+          user.email = email ? email : user.email;
 
           user
             .save()
