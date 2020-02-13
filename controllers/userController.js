@@ -8,9 +8,9 @@ module.exports = {
 
       //validate input
       if (
-        req.body.name.length === 0 ||
-        req.body.email.length === 0 ||
-        req.body.password.length === 0
+        name.length === 0 ||
+        email.length === 0 ||
+        password.length === 0
       ) {
         return res.json({ message: 'All fields must be completed' });
       }
@@ -23,8 +23,8 @@ module.exports = {
         const salt = bcrypt.genSaltSync(10);
         const hash = bcrypt.hashSync(req.body.password, salt);
 
-        newUser.name = req.body.name;
-        newUser.email = req.body.email;
+        newUser.name = name;
+        newUser.email = email;
         newUser.password = hash;
 
         newUser
@@ -54,7 +54,7 @@ module.exports = {
               );
             })
             .catch(err => {
-              return res.status(500).json({ message: 'Server error', err });
+              return res.status(400).json({ message: 'Server error', err });
             });
         })
         .catch(err => reject(err));
